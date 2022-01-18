@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 public class Producer extends Thread {
     Buffer buffer;
+    boolean finish = false;
     
     Producer(Buffer buffer) {
         this.buffer = buffer;
@@ -19,6 +20,7 @@ public class Producer extends Thread {
         Random r = new Random(System.currentTimeMillis());
         char product;
         
+        // while (finish) {
         for(int i=0 ; i<5 ; i++) {
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product);
@@ -32,5 +34,10 @@ public class Producer extends Thread {
             }
         }
     }
+    
+    public void stopProducer() {
+        this.finish = true;
+    }
+    
     
 }
