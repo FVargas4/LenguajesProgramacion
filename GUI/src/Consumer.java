@@ -15,10 +15,14 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product;
+        int product = 0;
+        
+        if (0 > product && product < 10){
+            System.out.println("Value out of range");
+        }
         
         // while (finish) {
-        for(int i=0 ; i<5 ; i++) {
+        for(int i=0 ; i<10 ; i++) {
             product = this.buffer.consume();
             //System.out.println("Consumer consumed: " + product);
             Buffer.print("Consumer consumed: " + product);

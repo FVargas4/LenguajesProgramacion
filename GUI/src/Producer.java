@@ -18,10 +18,14 @@ public class Producer extends Thread {
         System.out.println("Running Producer...");
         String products = "AEIOU";
         Random r = new Random(System.currentTimeMillis());
-        char product;
+        int product = 0;
+        
+        if (0 > product && product < 10){
+            System.out.println("Value out of range");
+        }
         
         // while (finish) {
-        for(int i=0 ; i<5 ; i++) {
+        for(int i=0 ; i<10 ; i++) {
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);

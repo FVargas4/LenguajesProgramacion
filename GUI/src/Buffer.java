@@ -6,14 +6,15 @@ import java.util.logging.Logger;
 
 public class Buffer {
     
-    private char buffer;
+    private int buffer;
     
     Buffer() {
         this.buffer = 0;
     }
     
-    synchronized char consume() {
-        char product = 0;
+    
+    synchronized int consume() {
+        int product = 0;
         
         if(this.buffer == 0) {
             try {
@@ -29,7 +30,7 @@ public class Buffer {
         return product;
     }
     
-    synchronized void produce(char product) {
+    synchronized void produce(int product) {
         if(this.buffer != 0) {
             try {
                 wait(1000);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
