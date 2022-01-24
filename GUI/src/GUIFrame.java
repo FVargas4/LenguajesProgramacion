@@ -60,6 +60,8 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Rango de Valores (n, m)");
 
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, null, 9, 1));
+
         jLabel1.setText("Productores");
 
         jLabel2.setText("Consumidores");
@@ -77,6 +79,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jSpinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
 
         jSpinner7.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
+        jSpinner8.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
