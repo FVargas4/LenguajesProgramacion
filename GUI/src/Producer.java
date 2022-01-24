@@ -16,7 +16,7 @@ public class Producer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Producer...");
-        String products = "AEIOU";
+        String products = "AEIOU"; //operaciones aleatoriament, aleaoria parametro 1, parametro 2
         Random r = new Random(System.currentTimeMillis());
         int product = 0;
         
@@ -25,7 +25,7 @@ public class Producer extends Thread {
         }
         
         // while (finish) {
-        for(int i=0 ; i<10 ; i++) {
+        for(int i=0 ; i<10 ; i++) {  
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);

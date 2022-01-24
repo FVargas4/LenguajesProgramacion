@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class Buffer {
     
-    private int buffer;
+    private int buffer; //se podría usar una lista, ver si la lista esta vacía o rpeguntar por el size.
     
     Buffer() {
         this.buffer = 0;
@@ -16,9 +16,9 @@ public class Buffer {
     synchronized int consume() {
         int product = 0;
         
-        if(this.buffer == 0) {
+        if(this.buffer == 0) {  //para múltiples, se puede usar un while 
             try {
-                wait(1000); // wait(); Esperar un tiempo indeterminado para poder consumir
+                wait(); // wait(); Esperar un tiempo indeterminado para poder consumir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -31,18 +31,19 @@ public class Buffer {
     }
     
     synchronized void produce(int product) {
-        if(this.buffer != 0) {
+        if(this.buffer != 0) { //para múltiples, se puede usar un while 
             try {
-                wait(1000);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
+                wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         this.buffer = product;
         
-        notify();
+        notify(); //levanta a uno por cada wait  , si uso notify all levanta todos
     }
     
+    //esta función se puede eliminar 
     static int count = 1;
     synchronized static void print(String string) {
         System.out.print(count++ + " ");
