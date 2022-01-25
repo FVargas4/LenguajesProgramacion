@@ -94,14 +94,14 @@
                               <Component id="jSpinner1" max="32767" attributes="0"/>
                               <Component id="jLabel4" max="32767" attributes="0"/>
                               <Component id="jSpinner7" pref="86" max="32767" attributes="0"/>
-                              <Component id="jSpinner8" max="32767" attributes="0"/>
+                              <Component id="n" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" max="32767" attributes="0"/>
                               <Component id="jSpinner5" max="32767" attributes="0"/>
                               <Component id="jSpinner6" max="32767" attributes="0"/>
-                              <Component id="jSpinner3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="m" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
@@ -137,8 +137,8 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="m" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="n" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="37" max="32767" attributes="0"/>
                       </Group>
@@ -156,7 +156,7 @@
                     <Property name="text" type="java.lang.String" value="Rango de Valores (n, m)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner3">
+                <Component class="javax.swing.JSpinner" name="m">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="0" maximum="9" numberType="java.lang.Integer" stepSize="1" type="number"/>
@@ -218,7 +218,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner8">
+                <Component class="javax.swing.JSpinner" name="n">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>

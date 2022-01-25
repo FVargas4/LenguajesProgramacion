@@ -9,8 +9,43 @@ public class Producer extends Thread {
     Buffer buffer;
     boolean finish = false;
     
+    public int n;
+    public int m;
+    
+    
     Producer(Buffer buffer) {
+        
         this.buffer = buffer;
+        
+        
+   
+    }
+
+    
+    public void scheme(Object n, Object m){
+    
+       int n_1, m_1;
+         
+       int RangoN = (int) n;
+       int RangoM = (int) m;
+       System.out.println("Tu valor n es:" + RangoN );
+       System.out.println("Tu valor m es:" + RangoM );
+        
+        if(RangoN < RangoM){ 
+            
+            Random random = new Random();
+
+            n_1 = random.nextInt((RangoM - RangoN) + 1) + RangoN;
+            m_1 =  random.nextInt((RangoM - RangoN) + 1) + RangoN;
+             
+            String setOfCharacters = "*/+-";
+            int randomInt = random.nextInt(setOfCharacters.length());
+            char randomChar = setOfCharacters.charAt(randomInt);
+            System.out.println("(" + randomChar + n_1 + " " + m_1 + ")" );
+        }
+        else{
+            System.out.println(" El primer valor n tiene que ser menor que m.");   
+        }
     }
     
     @Override
@@ -42,6 +77,7 @@ public class Producer extends Thread {
     public void stopProducer() {
         this.finish = true;
     }
-    
+
+   
     
 }
