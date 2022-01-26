@@ -21,9 +21,10 @@ public class Producer extends Thread {
     }
 
     
-    public void scheme(Object n, Object m){
+    public String scheme(Object n, Object m){
     
        int n_1, m_1;
+       String x;
          
        int RangoN = (int) n;
        int RangoM = (int) m;
@@ -33,18 +34,22 @@ public class Producer extends Thread {
         if(RangoN < RangoM){ 
             
             Random random = new Random();
-
+            
+            
             n_1 = random.nextInt((RangoM - RangoN) + 1) + RangoN;
             m_1 =  random.nextInt((RangoM - RangoN) + 1) + RangoN;
              
             String setOfCharacters = "*/+-";
             int randomInt = random.nextInt(setOfCharacters.length());
             char randomChar = setOfCharacters.charAt(randomInt);
-            System.out.println("(" + randomChar + n_1 + " " + m_1 + ")" );
+            x = "(" + randomChar + n_1 + " " + m_1 + ")" ;
+           
         }
         else{
-            System.out.println(" El primer valor n tiene que ser menor que m.");   
+            x = " El primer valor n tiene que ser menor que m.";   
         }
+        
+        return x;
     }
     
     @Override

@@ -33,7 +33,7 @@ public class Buffer {
     }
     
     synchronized void produce(int product, int waitTime) {
-        if(this.buffer != 0) {
+        if(this.buffer != this.bufferLimit) {
             try {
                 wait(waitTime);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {

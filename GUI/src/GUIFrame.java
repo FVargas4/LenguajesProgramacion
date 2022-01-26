@@ -267,8 +267,10 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
             Producer producer = new Producer(buffer, i, prodWaitMs);
+            System.out.println(producer.scheme(n.getValue(),m.getValue()));
             producer.start();
             System.out.println("Producer "+ i + " created");
+            
         }
         
               
