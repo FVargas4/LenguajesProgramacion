@@ -34,8 +34,8 @@ public class GUIFrame extends javax.swing.JFrame {
         m = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
+        producerQtty = new javax.swing.JSpinner();
+        consumerQtty = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSpinner5 = new javax.swing.JSpinner();
@@ -66,9 +66,9 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Consumidores");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        producerQtty.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        consumerQtty.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
 
         jLabel3.setText("Tamaño del Buffer");
 
@@ -96,8 +96,8 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinner2)
-                    .addComponent(jSpinner1)
+                    .addComponent(consumerQtty)
+                    .addComponent(producerQtty)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSpinner7, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(n))
@@ -119,13 +119,13 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(producerQtty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consumerQtty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,13 +258,26 @@ public class GUIFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Buffer buffer = new Buffer();
         
-        Producer producer = new Producer(buffer);
-        producer.start();
-              
-        producer.scheme(n.getValue(),m.getValue());
+        int producers = (Integer) producerQtty.getValue();
+        int consumers = (Integer) consumerQtty.getValue();
         
-        Consumer consumer = new Consumer(buffer);
-        consumer.start();
+        System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
+        System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
+        for(int i=1 ; i <= producers ; i++) {
+            Producer producer = new Producer(buffer);
+            producer.start();
+            System.out.println("Producer "+ String.valueOf(i) + " created");
+        }
+        
+              
+        //producer.scheme(n.getValue(),m.getValue());
+        
+        for(int i=1 ; i <= consumers ; i++) {
+            Consumer consumer = new Consumer(buffer);
+            consumer.start();
+            System.out.println("Consumer "+ String.valueOf(i) + " created");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -303,6 +316,7 @@ public class GUIFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JSpinner consumerQtty;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -318,8 +332,6 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JSpinner jSpinner5;
     private javax.swing.JSpinner jSpinner6;
@@ -329,5 +341,6 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JSpinner m;
     private javax.swing.JSpinner n;
+    public javax.swing.JSpinner producerQtty;
     // End of variables declaration//GEN-END:variables
 }
