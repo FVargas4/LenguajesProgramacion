@@ -264,18 +264,18 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer);
+            Producer producer = new Producer(buffer, i);
             producer.start();
-            System.out.println("Producer "+ String.valueOf(i) + " created");
+            System.out.println("Producer "+ i + " created");
         }
         
               
         //producer.scheme(n.getValue(),m.getValue());
         
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(buffer);
+            Consumer consumer = new Consumer(buffer, i);
             consumer.start();
-            System.out.println("Consumer "+ String.valueOf(i) + " created");
+            System.out.println("Consumer "+ i + " created");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

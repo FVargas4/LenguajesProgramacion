@@ -7,18 +7,16 @@ import java.util.logging.Logger;
 
 public class Producer extends Thread {
     Buffer buffer;
+    int id;
     boolean finish = false;
     
     public int n;
     public int m;
     
     
-    Producer(Buffer buffer) {
-        
+    Producer(Buffer buffer, int id) {
+        this.id = id;
         this.buffer = buffer;
-        
-        
-   
     }
 
     
@@ -50,7 +48,7 @@ public class Producer extends Thread {
     
     @Override
     public void run() {
-        System.out.println("Running Producer...");
+        System.out.println("Running Producer " + this.id + "...");
         String products = "AEIOU";
         Random r = new Random(System.currentTimeMillis());
         int product = 0;
@@ -64,7 +62,7 @@ public class Producer extends Thread {
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);
-            Buffer.print("Producer produced: " + product);
+            Buffer.print("Producer " + this.id + " produced: " + product);
             
             try {
                 Thread.sleep(1000);
