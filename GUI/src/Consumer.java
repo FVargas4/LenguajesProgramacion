@@ -8,10 +8,12 @@ public class Consumer extends Thread {
     Buffer buffer;
     int id;
     boolean finish = false;
+    int waitTime;
     
-    Consumer(Buffer buffer, int id) {
+    Consumer(Buffer buffer, int id, int waitTime) {
         this.id = id;
         this.buffer = buffer;
+        this.waitTime = waitTime;
     }
     
     @Override
@@ -25,7 +27,7 @@ public class Consumer extends Thread {
         
         // while (finish) {
         for(int i=0 ; i<10 ; i++) {
-            product = this.buffer.consume();
+            product = this.buffer.consume(this.waitTime);
             //System.out.println("Consumer consumed: " + product);
             Buffer.print("Consumer " + this.id + " consumed: " + product);
             

@@ -9,14 +9,15 @@ public class Producer extends Thread {
     Buffer buffer;
     int id;
     boolean finish = false;
-    
+    int waitTime;
     public int n;
     public int m;
     
     
-    Producer(Buffer buffer, int id) {
+    Producer(Buffer buffer, int id, int waitTime) {
         this.id = id;
         this.buffer = buffer;
+        this.waitTime = waitTime;
     }
 
     
@@ -60,7 +61,7 @@ public class Producer extends Thread {
         // while (finish) {
         for(int i=0 ; i<10 ; i++) {
             product = products.charAt(r.nextInt(5));
-            this.buffer.produce(product);
+            this.buffer.produce(product, waitTime);
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer " + this.id + " produced: " + product);
             

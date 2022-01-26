@@ -93,14 +93,14 @@
                               <Component id="consumerQtty" max="32767" attributes="0"/>
                               <Component id="producerQtty" max="32767" attributes="0"/>
                               <Component id="jLabel4" max="32767" attributes="0"/>
-                              <Component id="jSpinner7" pref="86" max="32767" attributes="0"/>
+                              <Component id="bufferQtty" pref="86" max="32767" attributes="0"/>
                               <Component id="n" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" max="32767" attributes="0"/>
-                              <Component id="jSpinner5" max="32767" attributes="0"/>
-                              <Component id="jSpinner6" max="32767" attributes="0"/>
+                              <Component id="consWait" max="32767" attributes="0"/>
+                              <Component id="prodWait" max="32767" attributes="0"/>
                               <Component id="m" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="52" max="32767" attributes="0"/>
@@ -119,7 +119,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="producerQtty" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jSpinner6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prodWait" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -127,12 +127,12 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="consumerQtty" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="consWait" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bufferQtty" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -203,26 +203,35 @@
                     <Property name="text" type="java.lang.String" value="Cantidad"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner5">
+                <Component class="javax.swing.JSpinner" name="consWait">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="0" maximum="10000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner6">
+                <Component class="javax.swing.JSpinner" name="prodWait">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="0" maximum="10000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner7">
+                <Component class="javax.swing.JSpinner" name="bufferQtty">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
                       <SpinnerModel initial="1" maximum="100" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="n">
                   <Properties>

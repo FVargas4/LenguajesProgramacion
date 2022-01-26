@@ -7,18 +7,20 @@ import java.util.logging.Logger;
 public class Buffer {
     
     private int buffer;
+    private int bufferLimit;
     
-    Buffer() {
+    Buffer(int bufferLimit) {
         this.buffer = 0;
+        this.bufferLimit = bufferLimit;
     }
     
     
-    synchronized int consume() {
+    synchronized int consume(int waitTime) {
         int product = 0;
         
         if(this.buffer == 0) {
             try {
-                wait(1000); // wait(); Esperar un tiempo indeterminado para poder consumir
+                wait(waitTime); // wait(); Esperar un tiempo indeterminado para poder consumir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -30,10 +32,10 @@ public class Buffer {
         return product;
     }
     
-    synchronized void produce(int product) {
+    synchronized void produce(int product, int waitTime) {
         if(this.buffer != 0) {
             try {
-                wait(1000);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
+                wait(waitTime);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -45,7 +47,7 @@ public class Buffer {
     
     static int count = 1;
     synchronized static void print(String string) {
-        System.out.print(count++ + " ");
+        System.out.print(count++ + ".....");
         System.out.println(string);
     }
     

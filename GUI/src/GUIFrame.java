@@ -38,9 +38,9 @@ public class GUIFrame extends javax.swing.JFrame {
         consumerQtty = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jSpinner5 = new javax.swing.JSpinner();
-        jSpinner6 = new javax.swing.JSpinner();
-        jSpinner7 = new javax.swing.JSpinner();
+        consWait = new javax.swing.JSpinner();
+        prodWait = new javax.swing.JSpinner();
+        bufferQtty = new javax.swing.JSpinner();
         n = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -74,11 +74,11 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Cantidad");
 
-        jSpinner5.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
+        consWait.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
 
-        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
+        prodWait.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
 
-        jSpinner7.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        bufferQtty.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         n.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
@@ -99,13 +99,13 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(consumerQtty)
                     .addComponent(producerQtty)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinner7, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                    .addComponent(bufferQtty, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addComponent(n))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinner5)
-                    .addComponent(jSpinner6)
+                    .addComponent(consWait)
+                    .addComponent(prodWait)
                     .addComponent(m))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
@@ -120,17 +120,17 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(producerQtty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(prodWait, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(consumerQtty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(consWait, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jSpinner7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bufferQtty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -256,15 +256,17 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buffer buffer = new Buffer();
+        Buffer buffer = new Buffer((Integer) bufferQtty.getValue());
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
+        int prodWaitMs = (Integer) prodWait.getValue();
+        int consWaitMS = (Integer) consWait.getValue();
         
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer, i);
+            Producer producer = new Producer(buffer, i, prodWaitMs);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
@@ -273,7 +275,7 @@ public class GUIFrame extends javax.swing.JFrame {
         //producer.scheme(n.getValue(),m.getValue());
         
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(buffer, i);
+            Consumer consumer = new Consumer(buffer, i, consWaitMS);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
@@ -316,6 +318,8 @@ public class GUIFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JSpinner bufferQtty;
+    public javax.swing.JSpinner consWait;
     public javax.swing.JSpinner consumerQtty;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -333,14 +337,12 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner4;
-    private javax.swing.JSpinner jSpinner5;
-    private javax.swing.JSpinner jSpinner6;
-    private javax.swing.JSpinner jSpinner7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JSpinner m;
     private javax.swing.JSpinner n;
+    public javax.swing.JSpinner prodWait;
     public javax.swing.JSpinner producerQtty;
     // End of variables declaration//GEN-END:variables
 }
