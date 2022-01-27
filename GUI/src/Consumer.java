@@ -15,7 +15,43 @@ public class Consumer extends Thread {
         this.buffer = buffer;
         this.waitTime = waitTime;
     }
-    
+
+    public String translate(String mensaje){
+        int a = 0;
+        int b = 0;
+        char op = 0;
+        String response;
+        String numbers = "0123456789";
+
+        for(int i = 0; i < mensaje.length(); i++){
+            char c = mensaje.charAt(i);
+            switch(c){
+                case ' ':
+                    continue;
+                case '(':
+                    continue;
+                case '-':
+                    op = c;
+                case '+':
+                    op = c;
+                case '/':
+                    op = c;
+                case '*':
+                    op = c;
+                default:
+                if(numbers.contains(c)){
+                    if(a != 0){
+                        a = c;
+                    }else{
+                        b = c;
+                    }}
+            }
+            response = a + op+ b;
+        }
+        
+        return response;
+    }
+
     @Override
     public void run() {
         System.out.println("Running Consumer " + this.id + "...");
@@ -25,6 +61,8 @@ public class Consumer extends Thread {
             System.out.println("Value out of range");
         }
         
+        
+
         // while (finish) {
         for(int i=0 ; i<10 ; i++) {
             product = this.buffer.consume(this.waitTime);
