@@ -39,6 +39,7 @@ public class Buffer {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this.buffer += 1;
         }
         this.buffer = product;
         
