@@ -60,7 +60,9 @@ public class Producer extends Thread {
             this.buffer.produce(product, waitTime);
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer " + this.id + " produced: " + product);
-           
+            
+            
+            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

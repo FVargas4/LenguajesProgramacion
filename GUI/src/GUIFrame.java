@@ -30,6 +30,7 @@ public class GUIFrame extends javax.swing.JFrame {
         jProgressBar1.setValue(valor);
         
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,6 +307,7 @@ public class GUIFrame extends javax.swing.JFrame {
         
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
+        
         for(int i=1 ; i <= producers ; i++) {
             Producer producer = new Producer(buffer, i, prodWaitMs,x ,y);
            // System.out.println(producer.scheme(),m.getValue()));
