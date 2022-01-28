@@ -56,6 +56,7 @@ public class Producer extends Thread {
     public void run() {
         System.out.println("Running Producer " + this.id + "...");
         String products = "AEIOU";
+
         Random r = new Random(System.currentTimeMillis());
         int product = 0;
         
@@ -64,7 +65,7 @@ public class Producer extends Thread {
         }
         
         // while (finish) {
-        for(int i=0 ; i<10 ; i++) {
+        for(int i=0 ; i<10 ; i++) {  
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product, waitTime);
             //System.out.println("Producer produced: " + product);
