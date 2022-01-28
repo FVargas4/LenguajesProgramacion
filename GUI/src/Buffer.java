@@ -3,18 +3,21 @@
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class Buffer {
     
 
-    private int buffer;
+   
     private int bufferLimit;
     private String aux;
+    public int counter = 0;
+    ArrayList<String> buffer = new ArrayList<>(bufferLimit);
 
 
     
-    Buffer(int bufferLimit) {
-        this.buffer = 0;
+    Buffer(int bufferLimit, GUIFrame gui) {
+        this.buffer.add(0,"");
         this.bufferLimit = bufferLimit;
     }
     
@@ -22,33 +25,34 @@ public class Buffer {
     synchronized String consume(int waitTime) {
         String product = "";
         
-        if(this.buffer == 0) {  //para múltiples, se puede usar un while 
+        if(this.buffer.get(0).isEmpty()) {  //para múltiples, se puede usar un while 
             try {
-                wait(waitTime); // wait(); Esperar un tiempo indeterminado para poder consumir
+                wait(); // wait(); Esperar un tiempo indeterminado para poder consumir
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         product = this.aux;
-        this.buffer = 0;
-        notify();
+        this.buffer.add(0,"");//Checar esto por favor, por el momento esta asignando la 
+//      primera posicion a un string vacio.
+        notifyAll();
         
         return product;
     }
 
     synchronized void produce(String product, int waitTime) {
-        if(this.buffer != this.bufferLimit) {
+        if(counter <= this.bufferLimit) {
             try {
-                wait(waitTime);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
+                wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.buffer += 1;
+            //this.buffer += 1;
         }
         this.aux = product;
         
-        notify(); //levanta a uno por cada wait  , si uso notify all levanta todos
+        notifyAll(); //levanta a uno por cada wait  , si uso notify all levanta todos
     }
     
     //esta función se puede eliminar 
@@ -57,5 +61,15 @@ public class Buffer {
         System.out.print(count++ + ".....");
         System.out.println(string);
     }
+    
+    public int countProductor(){
+        return this.counter += 1;
+    }
+     public int countConsumidor(){
+        return this.counter -= 1;
+    }
+    
+    
+    
     
 }

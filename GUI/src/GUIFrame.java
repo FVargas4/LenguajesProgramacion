@@ -84,7 +84,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Rango de Valores (n, m)");
 
-        m.setModel(new javax.swing.SpinnerNumberModel(0, null, 9, 1));
+        m.setModel(new javax.swing.SpinnerNumberModel(2, 2, 9, 1));
 
         jLabel1.setText("Productores");
 
@@ -104,7 +104,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         bufferQtty.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
-        n.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        n.setModel(new javax.swing.SpinnerNumberModel(1, 1, 8, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -295,7 +295,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buffer buffer = new Buffer((Integer) bufferQtty.getValue());
+        Buffer buffer = new Buffer((Integer) bufferQtty.getValue(), this);
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
