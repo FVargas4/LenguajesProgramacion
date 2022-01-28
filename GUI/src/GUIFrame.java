@@ -130,8 +130,7 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(consWait)
                     .addComponent(prodWait)
                     .addComponent(m))
-                .addContainerGap(52, Short.MAX_VALUE))
-
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +159,7 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(m, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -181,7 +180,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Problem", "Result"
+                "ID", "Scheme"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -198,6 +197,10 @@ public class GUIFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(2).setHeaderValue("Title 3");
+            jTable2.getColumnModel().getColumn(3).setHeaderValue("Title 4");
+        }
 
         jLabel7.setText("Tareas por hacer");
 
@@ -297,13 +300,20 @@ public class GUIFrame extends javax.swing.JFrame {
         int consumers = (Integer) consumerQtty.getValue();
         int prodWaitMs = (Integer) prodWait.getValue();
         int consWaitMS = (Integer) consWait.getValue();
+        int x  = (Integer) n.getValue();
+        int y  = (Integer) m.getValue();
+        String ID;
         
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer, i, prodWaitMs);
-            System.out.println(producer.scheme(n.getValue(),m.getValue()));
-            producer.start();
+            Producer producer = new Producer(buffer, i, prodWaitMs,x ,y);
+           // System.out.println(producer.scheme(),m.getValue()));
+           producer.start();
+           ID= producer.logic();
+           DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+           model.addRow(new Object[]{i,ID});
+           
             System.out.println("Producer "+ i + " created");
             
         }
@@ -329,9 +339,9 @@ public class GUIFrame extends javax.swing.JFrame {
             ingresarValor();
             int num = (int) producerQtty.getValue();
             String oper= "(+ 4 2)";
-            int result = 3;
             DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{producerQtty.getValue(),oper,result });
+            model.addRow(new Object[]{producerQtty.getValue(),oper});
+            //model.removeRow(new Object[]{producerQtty.getValue(),oper});
         }catch (Exception e) {
            JOptionPane.showMessageDialog(null,e);
         }
@@ -403,11 +413,11 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private java.awt.List list1;
+    private java.awt.List list2;
     private javax.swing.JSpinner m;
     private javax.swing.JSpinner n;
     public javax.swing.JSpinner prodWait;
     public javax.swing.JSpinner producerQtty;
-    private java.awt.List list1;
-    private java.awt.List list2;
     // End of variables declaration//GEN-END:variables
 }

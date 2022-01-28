@@ -14,22 +14,22 @@ public class Producer extends Thread {
     public int m;
     
     
-    Producer(Buffer buffer, int id, int waitTime) {
+    Producer(Buffer buffer, int id, int waitTime, int n, int m) {
         this.id = id;
         this.buffer = buffer;
         this.waitTime = waitTime;
+        this.n = n;
+        this.m = m;
     }
 
     
-    public String scheme(Object n, Object m){
+    public String scheme(int n, int m){
     
        int n_1, m_1;
        String x;
          
-       int RangoN = (int) n;
-       int RangoM = (int) m;
-       System.out.println("Tu valor n es:" + RangoN );
-       System.out.println("Tu valor m es:" + RangoM );
+       int RangoN =  n;
+       int RangoM =  m;
         
         if(RangoN < RangoM){ 
             
@@ -42,7 +42,7 @@ public class Producer extends Thread {
             String setOfCharacters = "*/+-";
             int randomInt = random.nextInt(setOfCharacters.length());
             char randomChar = setOfCharacters.charAt(randomInt);
-            x = "(" + randomChar + n_1 + " " + m_1 + ")" ;
+            x = "(" + randomChar +" " + n_1 + " " + m_1 + ")" ;
            
         }
         else{
@@ -52,32 +52,39 @@ public class Producer extends Thread {
         return x;
     }
     
-    @Override
-    public void run() {
-        System.out.println("Running Producer " + this.id + "...");
-        String products = "AEIOU";
-
-        Random r = new Random(System.currentTimeMillis());
-        int product = 0;
-        
-        if (0 > product && product < 10){
-            System.out.println("Value out of range");
-        }
-        
+    public String logic(){
         // while (finish) {
+        String product = null;
         for(int i=0 ; i<10 ; i++) {  
-            product = products.charAt(r.nextInt(5));
+            product = scheme(n,m);
             this.buffer.produce(product, waitTime);
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer " + this.id + " produced: " + product);
-            
+           
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //return "Producer " + this.id + " produced: " + product;
+            return product;
         }
+        return null;
     }
+    
+    
+    
+    @Override
+    public void run() {
+        System.out.println("Running Producer " + this.id + "...");
+        String products;
+
+        Random r = new Random(System.currentTimeMillis());
+        logic();
+       
+    }
+    
+     
     
     public void stopProducer() {
         this.finish = true;

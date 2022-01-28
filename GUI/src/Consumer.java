@@ -19,12 +19,8 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer " + this.id + "...");
-        int product = 0;
-        
-        if (0 > product && product < 10){
-            System.out.println("Value out of range");
-        }
-        
+        String product ;
+       
         // while (finish) {
         for(int i=0 ; i<10 ; i++) {
             product = this.buffer.consume(this.waitTime);

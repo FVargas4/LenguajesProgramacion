@@ -9,6 +9,7 @@ public class Buffer {
 
     private int buffer;
     private int bufferLimit;
+    private String aux;
 
 
     
@@ -18,8 +19,8 @@ public class Buffer {
     }
     
     
-    synchronized int consume(int waitTime) {
-        int product = 0;
+    synchronized String consume(int waitTime) {
+        String product = "";
         
         if(this.buffer == 0) {  //para múltiples, se puede usar un while 
             try {
@@ -29,14 +30,14 @@ public class Buffer {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer;
+        product = this.aux;
         this.buffer = 0;
         notify();
         
         return product;
     }
 
-    synchronized void produce(int product, int waitTime) {
+    synchronized void produce(String product, int waitTime) {
         if(this.buffer != this.bufferLimit) {
             try {
                 wait(waitTime);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
@@ -45,7 +46,7 @@ public class Buffer {
             }
             this.buffer += 1;
         }
-        this.buffer = product;
+        this.aux = product;
         
         notify(); //levanta a uno por cada wait  , si uso notify all levanta todos
     }
