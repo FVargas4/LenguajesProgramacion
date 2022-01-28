@@ -51,6 +51,7 @@ public class Buffer {
     }
     
     //esta función se puede eliminar 
+    // test push
     static int count = 1;
     synchronized static void print(String string) {
         System.out.print(count++ + ".....");
