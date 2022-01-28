@@ -25,7 +25,7 @@ public class GUIFrame extends javax.swing.JFrame {
     //método prueba para la progres bar
     public void ingresarValor(){
         
-        int valor= 70;
+        int valor= 50;
         jProgressBar1.setValue(valor);
         
     }
@@ -303,7 +303,7 @@ public class GUIFrame extends javax.swing.JFrame {
         try {
             ingresarValor();
             int num = (int) jSpinner1.getValue();
-            String oper= "Hola";
+            String oper= "(+ 4 2)";
             int result = 3;
             DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
             model.addRow(new Object[]{jSpinner1.getValue(),oper,result });
