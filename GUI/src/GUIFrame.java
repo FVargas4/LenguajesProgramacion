@@ -256,7 +256,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buffer buffer = new Buffer((Integer) bufferQtty.getValue());
+        Buffer buffer = new Buffer((Integer) bufferQtty.getValue(), this);
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();

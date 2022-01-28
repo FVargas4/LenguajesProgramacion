@@ -9,9 +9,10 @@ public class Buffer {
     private String buffer;
     private final int bufferLimit;
     
-    Buffer(int bufferLimit) {
+    Buffer(int bufferLimit, GUIFrame x) {
         this.buffer = "";
         this.bufferLimit = bufferLimit;
+        
     }
     
     
