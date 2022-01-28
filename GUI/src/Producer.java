@@ -59,10 +59,6 @@ public class Producer extends Thread {
         Random r = new Random(System.currentTimeMillis());
         int product = 0;
         
-        if (0 > product && product < 10){
-            System.out.println("Value out of range");
-        }
-        
         // while (finish) {
         for(int i=0 ; i<10 ; i++) {
             product = products.charAt(r.nextInt(5));

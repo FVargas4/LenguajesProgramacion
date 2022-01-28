@@ -16,7 +16,7 @@ public class Consumer extends Thread {
         this.waitTime = waitTime;
     }
 
-    public String translate(String mensaje){
+    /*public String translate(String mensaje){
         int a = 0;
         int b = 0;
         char op = 0;
@@ -50,17 +50,12 @@ public class Consumer extends Thread {
         }
         
         return response;
-    }
+    }*/
 
     @Override
     public void run() {
         System.out.println("Running Consumer " + this.id + "...");
-        int product = 0;
-        
-        if (0 > product && product < 10){
-            System.out.println("Value out of range");
-        }
-        
+        String product = "";
         
 
         // while (finish) {

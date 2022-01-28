@@ -6,19 +6,19 @@ import java.util.logging.Logger;
 
 public class Buffer {
     
-    private int buffer;
-    private int bufferLimit;
+    private String buffer;
+    private final int bufferLimit;
     
     Buffer(int bufferLimit) {
-        this.buffer = 0;
+        this.buffer = "";
         this.bufferLimit = bufferLimit;
     }
     
     
-    synchronized int consume(int waitTime) {
-        int product = 0;
+    synchronized String consume(int waitTime) {
+        String product = "";
         
-        if(this.buffer == 0) {
+        if("".equals(this.buffer)) {
             try {
                 wait(waitTime); // wait(); Esperar un tiempo indeterminado para poder consumir
             } catch (InterruptedException ex) {
@@ -26,14 +26,14 @@ public class Buffer {
             }
         }
         product = this.buffer;
-        this.buffer = 0;
+        this.buffer = "";
         notify();
         
         return product;
     }
     
-    synchronized void produce(int product, int waitTime) {
-        if(this.buffer != this.bufferLimit) {
+    synchronized void produce(String product, int waitTime) {
+        for (int i = 0; i < this.bufferLimit;i++) {
             try {
                 wait(waitTime);// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
