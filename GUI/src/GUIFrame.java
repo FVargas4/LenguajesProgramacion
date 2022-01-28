@@ -2,6 +2,7 @@
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import static javax.swing.text.html.HTML.Tag.HEAD;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -126,17 +127,11 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-<<<<<<< HEAD
                     .addComponent(consWait)
                     .addComponent(prodWait)
                     .addComponent(m))
                 .addContainerGap(52, Short.MAX_VALUE))
-=======
-                    .addComponent(jSpinner5)
-                    .addComponent(jSpinner6)
-                    .addComponent(jSpinner3))
-                .addContainerGap(110, Short.MAX_VALUE))
->>>>>>> feature/tareas-por-hacer
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,15 +158,9 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-<<<<<<< HEAD
                     .addComponent(m, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
-=======
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
->>>>>>> feature/tareas-por-hacer
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -414,14 +403,11 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-<<<<<<< HEAD
     private javax.swing.JSpinner m;
     private javax.swing.JSpinner n;
     public javax.swing.JSpinner prodWait;
     public javax.swing.JSpinner producerQtty;
-=======
     private java.awt.List list1;
     private java.awt.List list2;
->>>>>>> feature/tareas-por-hacer
     // End of variables declaration//GEN-END:variables
 }
