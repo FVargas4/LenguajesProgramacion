@@ -22,7 +22,7 @@ public class Producer extends Thread {
     }
 
     
-    public String scheme(int n, int m){
+    synchronized String scheme(int n, int m){
     
        int n_1, m_1;
        String x;
@@ -56,9 +56,10 @@ public class Producer extends Thread {
         System.out.println("Running Producer " + this.id + "...");
         String product = "";
         while (this.buffer.isActive) {
-            if(this.buffer.counter < this.buffer.bufferLimit) {
+            if(this.buffer.counter <= this.buffer.bufferLimit) {
+                
     //          for(int i=0 ; i<10 ; i++) {  
-//                product = scheme(n,m);
+                product = scheme(n,m);
                 this.buffer.produce(product, waitTime);
                 //System.out.println("Producer produced: " + product);
                 this.buffer.print("Producer " + this.id + " produced: " + product);
@@ -72,6 +73,9 @@ public class Producer extends Thread {
                 }
                 this.buffer.incrementCount();
 //                return product;
+            }
+            else {
+                System.out.println("Your buffer is empty.");
             }
             //return "Producer " + this.id + " produced: " + product;  
         }

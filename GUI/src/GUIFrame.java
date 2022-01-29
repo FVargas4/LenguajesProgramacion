@@ -271,7 +271,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
@@ -283,25 +283,24 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer, i, prodWaitMs, x, y);
+            Producer producer = new Producer(this.buffer, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
-        
-              
-        //producer.scheme(n.getValue(),m.getValue());
-        
+
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(buffer, i, consWaitMS);
+            Consumer consumer = new Consumer(this.buffer, i, consWaitMS);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
+            
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        buffer.stopProducerConsumer();
+        this.buffer.stopProducerConsumer();
         System.out.println("EXECUTION TERMINATED");
     }//GEN-LAST:event_jButton2ActionPerformed
 
