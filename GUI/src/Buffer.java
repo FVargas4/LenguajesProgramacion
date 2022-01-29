@@ -34,7 +34,11 @@ public class Buffer {
             }
         }
 //        product = this.aux;
-        String removed = this.bufferPool.remove(0);
+        String removed = "||||No operations to be resolved available||||";
+        if( !this.bufferPool.isEmpty()){
+            removed = this.bufferPool.remove(0);
+        }
+        
 //        product = this.buffer;
 //        this.buffer = 0;
         notifyAll();
@@ -56,19 +60,19 @@ public class Buffer {
         notifyAll();
     }
     
-    static int count = 1;
+    int count = 1;
     synchronized void print(String string) {
         System.out.print(count++ + ".....");
         System.out.println(string);
-//        printBuffer();
+        printBuffer();
     }
     
     void printBuffer() {
-        System.out.println(".................");
+        System.out.println("\n.................");
         this.bufferPool.forEach(item ->{
             System.out.println(item);
         });
-        System.out.println(".................");
+        System.out.println("\n.................");
     }
     
     synchronized int incrementCount(){
@@ -80,6 +84,7 @@ public class Buffer {
      
     synchronized void stopProducerConsumer() {
         this.isActive = false;
+        this.count = 0;
     }
     
 }
