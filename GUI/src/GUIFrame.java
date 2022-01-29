@@ -10,6 +10,7 @@
  */
 public class GUIFrame extends javax.swing.JFrame {
 
+    Buffer buffer;
     /**
      * Creates new form GUIFrame
      */
@@ -52,6 +53,7 @@ public class GUIFrame extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         jSpinner4 = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -230,6 +232,15 @@ public class GUIFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 0, 51));
+        jButton2.setText("TERMINAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,8 +249,10 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +260,9 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -256,17 +271,19 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buffer buffer = new Buffer((Integer) bufferQtty.getValue());
+        buffer = new Buffer((Integer) bufferQtty.getValue(), this);
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
         int prodWaitMs = (Integer) prodWait.getValue();
         int consWaitMS = (Integer) consWait.getValue();
+        int x  = (Integer) n.getValue();
+        int y  = (Integer) m.getValue();
         
         System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
         System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer, i, prodWaitMs);
+            Producer producer = new Producer(buffer, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
@@ -281,6 +298,12 @@ public class GUIFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        buffer.stopProducerConsumer();
+        System.out.println("EXECUTION TERMINATED");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,6 +345,7 @@ public class GUIFrame extends javax.swing.JFrame {
     public javax.swing.JSpinner consWait;
     public javax.swing.JSpinner consumerQtty;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
