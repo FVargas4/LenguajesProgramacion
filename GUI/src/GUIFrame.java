@@ -16,6 +16,8 @@ import static javax.swing.text.html.HTML.Tag.HEAD;
  */
 public class GUIFrame extends javax.swing.JFrame {
 
+    Buffer buffer;
+    boolean isProcessNotStarted = true;
     /**
      * Creates new form GUIFrame
      */
@@ -69,6 +71,7 @@ public class GUIFrame extends javax.swing.JFrame {
         jSpinner4 = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         list2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,6 +268,15 @@ public class GUIFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 0, 51));
+        jButton2.setText("TERMINAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,8 +285,10 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +296,9 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -291,57 +307,43 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Buffer buffer = new Buffer((Integer) bufferQtty.getValue());
+        jButton1.setEnabled(false);
+        this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
         int prodWaitMs = (Integer) prodWait.getValue();
         int consWaitMS = (Integer) consWait.getValue();
+        int x  = (Integer) n.getValue();
+        int y  = (Integer) m.getValue();
         
-        System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
-        System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
+        System.out.println("OPERATIONS ARE ABOUT TO GET SOLVED!! ");
+        
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(buffer, i, prodWaitMs);
-            System.out.println(producer.scheme(n.getValue(),m.getValue()));
+            Producer producer = new Producer(this.buffer, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
             
         }
-        
-              
-        //producer.scheme(n.getValue(),m.getValue());
-        
+
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(buffer, i, consWaitMS);
+            Consumer consumer = new Consumer(this.buffer, i, consWaitMS);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
+
+            
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void list2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_list2ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        try {
-            ingresarValor();
-            int num = (int) producerQtty.getValue();
-            String oper= "(+ 4 2)";
-            int result = 3;
-            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            model.addRow(new Object[]{producerQtty.getValue(),oper,result });
-        }catch (Exception e) {
-           JOptionPane.showMessageDialog(null,e);
-        }
-        
-       
-        
-        
-        
-        
-       
+        // TODO add your handling code here:
+        this.buffer.stopProducerConsumer();
+        System.out.println("EXECUTION TERMINATED");
+        this.isProcessNotStarted = true;
+        jButton1.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

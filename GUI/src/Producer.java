@@ -8,28 +8,27 @@ import java.util.logging.Logger;
 public class Producer extends Thread {
     Buffer buffer;
     int id;
-    boolean finish = false;
     int waitTime;
     public int n;
     public int m;
     
     
-    Producer(Buffer buffer, int id, int waitTime) {
+    Producer(Buffer buffer, int id, int waitTime, int n, int m) {
         this.id = id;
         this.buffer = buffer;
         this.waitTime = waitTime;
+        this.n = n;
+        this.m = m;
     }
 
     
-    public String scheme(Object n, Object m){
+    synchronized String scheme(int n, int m){
     
        int n_1, m_1;
        String x;
          
-       int RangoN = (int) n;
-       int RangoM = (int) m;
-       System.out.println("Tu valor n es:" + RangoN );
-       System.out.println("Tu valor m es:" + RangoM );
+       int RangoN =  n;
+       int RangoM =  m;
         
         if(RangoN < RangoM){ 
             
@@ -42,7 +41,7 @@ public class Producer extends Thread {
             String setOfCharacters = "*/+-";
             int randomInt = random.nextInt(setOfCharacters.length());
             char randomChar = setOfCharacters.charAt(randomInt);
-            x = "(" + randomChar + n_1 + " " + m_1 + ")" ;
+            x = "(" + randomChar +" " + n_1 + " " + m_1 + ")" ;
            
         }
         else{
@@ -55,33 +54,34 @@ public class Producer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Producer " + this.id + "...");
-        String products = "AEIOU";
+        String product = "";
+        while (this.buffer.isActive) {
+            if(this.buffer.counter <= this.buffer.bufferLimit) {
+                
+    //          for(int i=0 ; i<10 ; i++) {  
+                product = scheme(n,m);
+                this.buffer.produce(product, waitTime);
+                //System.out.println("Producer produced: " + product);
+                this.buffer.print("Producer " + this.id + " produced: " + product);
 
-        Random r = new Random(System.currentTimeMillis());
-        int product = 0;
-        
-        if (0 > product && product < 10){
-            System.out.println("Value out of range");
-        }
-        
-        // while (finish) {
-        for(int i=0 ; i<10 ; i++) {  
-            product = products.charAt(r.nextInt(5));
-            this.buffer.produce(product, waitTime);
-            //System.out.println("Producer produced: " + product);
-            Buffer.print("Producer " + this.id + " produced: " + product);
-            
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+
+
+                try {
+                    Thread.sleep(waitTime);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.buffer.incrementCount();
+//                return product;
             }
+            else {
+                //Buffer empty notification for monitoring. Commented for clarity purposes.
+                //System.out.println("Your buffer is empty.");
+            }
+            //return "Producer " + this.id + " produced: " + product;  
         }
     }
     
-    public void stopProducer() {
-        this.finish = true;
-    }
 
    
     
