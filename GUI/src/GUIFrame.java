@@ -11,6 +11,7 @@
 public class GUIFrame extends javax.swing.JFrame {
 
     Buffer buffer;
+    boolean isProcessNotStarted = true;
     /**
      * Creates new form GUIFrame
      */
@@ -271,7 +272,9 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        
         
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
@@ -280,8 +283,8 @@ public class GUIFrame extends javax.swing.JFrame {
         int x  = (Integer) n.getValue();
         int y  = (Integer) m.getValue();
         
-        System.out.println("PRODUCERS "+ String.valueOf(producerQtty.getValue()));
-        System.out.println("CONSUMERS "+ String.valueOf(consumerQtty.getValue()));
+        System.out.println("OPERATIONS ARE ABOUT TO GET SOLVED!! ");
+        
         for(int i=1 ; i <= producers ; i++) {
             Producer producer = new Producer(this.buffer, i, prodWaitMs, x, y);
             producer.start();
@@ -293,6 +296,7 @@ public class GUIFrame extends javax.swing.JFrame {
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
+
             
         
         
@@ -302,6 +306,8 @@ public class GUIFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.buffer.stopProducerConsumer();
         System.out.println("EXECUTION TERMINATED");
+        this.isProcessNotStarted = true;
+        jButton1.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
