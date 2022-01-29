@@ -75,7 +75,8 @@ public class Producer extends Thread {
 //                return product;
             }
             else {
-                System.out.println("Your buffer is empty.");
+                //Buffer empty notification for monitoring. Commented for clarity purposes.
+                //System.out.println("Your buffer is empty.");
             }
             //return "Producer " + this.id + " produced: " + product;  
         }
