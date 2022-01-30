@@ -1,3 +1,6 @@
+
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +20,19 @@ public class GUIFrame extends javax.swing.JFrame {
      */
     public GUIFrame() {
         initComponents();
+    }
+    
+    //método prueba para la progres bar
+    public void ingresarValor(){
+
+        int valor= 10;
+        jProgressBar1.setValue(valor);
+
+    }
+    
+    public void addProducts(int id, String product){
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.addRow(new Object[]{id, product});
     }
 
     /**
@@ -157,26 +173,20 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Scheme"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Scheme", "Result"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -274,6 +284,11 @@ public class GUIFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        ingresarValor();
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+        
         
         
         int producers = (Integer) producerQtty.getValue();
@@ -286,7 +301,7 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("OPERATIONS ARE ABOUT TO GET SOLVED!! ");
         
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(this.buffer, i, prodWaitMs, x, y);
+            Producer producer = new Producer(this.buffer, this, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
@@ -296,7 +311,7 @@ public class GUIFrame extends javax.swing.JFrame {
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
-
+        
             
         
         
@@ -308,6 +323,8 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
         jButton1.setEnabled(true);
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.removeRow(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
