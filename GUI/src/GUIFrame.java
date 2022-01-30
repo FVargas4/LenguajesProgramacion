@@ -22,8 +22,8 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public float resultado(String product){
-        float res =0;
+    public double resultado(String product){
+        double res =0;
         char ch  = product.charAt(1);
         char number  = product.charAt(3);
         char number2  = product.charAt(5);
@@ -32,7 +32,7 @@ public class GUIFrame extends javax.swing.JFrame {
         
         switch (ch) {
             case '/':
-                res= num/num2;
+                res= (double)num/num2;
                 break;
             case '*':
                 res= num*num2;
@@ -65,7 +65,7 @@ public class GUIFrame extends javax.swing.JFrame {
     
    
     int counter=0;
-    float result;
+    double result;
     public void removeProducts(int id, String product){
         counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
