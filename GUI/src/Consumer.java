@@ -6,12 +6,14 @@ import java.util.logging.Logger;
 
 public class Consumer extends Thread {
     Buffer buffer;
+    GUIFrame gui;
     int id;
     int waitTime;
     
-    Consumer(Buffer buffer, int id, int waitTime) {
+    Consumer(Buffer buffer, GUIFrame gui, int id, int waitTime) {
         this.id = id;
         this.buffer = buffer;
+        this.gui = gui;
         this.waitTime = waitTime;
     }
     
@@ -37,6 +39,7 @@ public class Consumer extends Thread {
                 product = this.buffer.consume(this.waitTime);
                 //System.out.println("Consumer consumed: " + product);
                 this.buffer.print("Consumer " + this.id + " consumed: " + product);
+                this.gui.removeProducts(this.id, product);
 
                 try {
                     Thread.sleep(waitTime);

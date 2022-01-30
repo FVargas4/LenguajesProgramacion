@@ -7,15 +7,17 @@ import java.util.logging.Logger;
 
 public class Producer extends Thread {
     Buffer buffer;
+    GUIFrame gui;
     int id;
     int waitTime;
     public int n;
     public int m;
     
     
-    Producer(Buffer buffer, int id, int waitTime, int n, int m) {
+    Producer(Buffer buffer, GUIFrame gui, int id, int waitTime, int n, int m) {
         this.id = id;
         this.buffer = buffer;
+        this.gui = gui;
         this.waitTime = waitTime;
         this.n = n;
         this.m = m;
@@ -63,6 +65,7 @@ public class Producer extends Thread {
                 this.buffer.produce(product, waitTime);
                 //System.out.println("Producer produced: " + product);
                 this.buffer.print("Producer " + this.id + " produced: " + product);
+                this.gui.addProducts(this.id, product);
 
 
 

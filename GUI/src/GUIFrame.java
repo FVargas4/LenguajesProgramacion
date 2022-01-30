@@ -1,3 +1,6 @@
+
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +21,74 @@ public class GUIFrame extends javax.swing.JFrame {
     public GUIFrame() {
         initComponents();
     }
+    
+    public double resultado(String product){
+        double res =0;
+        char ch  = product.charAt(1);
+        char number  = product.charAt(3);
+        char number2  = product.charAt(5);
+        int num= Integer.parseInt(String.valueOf(number));
+        int num2= Integer.parseInt(String.valueOf(number2));
+        
+        switch (ch) {
+            case '/':
+                res= (double)num/num2;
+                break;
+            case '*':
+                res= num*num2;
+                break;
+            case '-':
+                res= num-num2;
+                break;
+            case '+':
+                res= num+num2;
+                break;
+        }
+        return res;
+    }
+    
+    int valor= 100;
+    
+    
+    public void addProducts(int id, String product){
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.addRow(new Object[]{id, product});
+        valor = valor - 1;
+        jProgressBar1.setValue(valor);
+    }
+    
+   
+    int counter=0;
+    double result;
+    public void removeProducts(int id, String product){
+        counter++;
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
+        try{
+            int size = model.getRowCount();
+            for(int i = 0; i<=size; i++){
+                if(product == model.getValueAt(i, 1)){
+                    model.removeRow(i);
+                    valor = valor + 1;
+                    jProgressBar1.setValue(valor);
+                    jSpinner4.setValue(counter);
+                    //System.out.println("Res" + resultado(product) +"product"+product);
+                    result=resultado(product);
+                    model2.addRow(new Object[]{id, product,result});
+                }
+            
+            }
+            
+            if(model.getRowCount() == 0){
+                System.out.println("Nothing to be removed.");
+            }
+        }catch(Exception e){
+            
+        }
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,26 +228,20 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Scheme"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Scheme", "Result"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -272,8 +337,18 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        valor= 100;
+        counter=0;
+        jProgressBar1.setValue(valor);
+        jSpinner4.setValue(counter);
         jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
+        model.setRowCount(0);
+        model2.setRowCount(0);
+        
         
         
         int producers = (Integer) producerQtty.getValue();
@@ -286,17 +361,17 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("OPERATIONS ARE ABOUT TO GET SOLVED!! ");
         
         for(int i=1 ; i <= producers ; i++) {
-            Producer producer = new Producer(this.buffer, i, prodWaitMs, x, y);
+            Producer producer = new Producer(this.buffer, this, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
 
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(this.buffer, i, consWaitMS);
+            Consumer consumer = new Consumer(this.buffer, this, i, consWaitMS);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
-
+        
             
         
         
@@ -304,10 +379,13 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //counter=0;
+        //jSpinner4.setValue(counter);
         this.buffer.stopProducerConsumer();
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
         jButton1.setEnabled(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
