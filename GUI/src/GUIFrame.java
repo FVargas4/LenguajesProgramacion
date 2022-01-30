@@ -22,7 +22,7 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    int valor= 10;
+    int valor= 100;
     //método prueba para la progres bar
     public void ingresarValor(){
         jProgressBar1.setValue(valor);
@@ -35,7 +35,7 @@ public class GUIFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
         jProgressBar1.setValue(valor);
-        valor ++;
+        valor = valor - 10;
     }
     
    
@@ -49,6 +49,7 @@ public class GUIFrame extends javax.swing.JFrame {
             for(int i = 0; i<=size; i++){
                 if(product == model.getValueAt(i, 1)){
                     model.removeRow(i);
+                    valor = valor + 10;
                     jSpinner4.setValue(counter);
                     model2.addRow(new Object[]{id, product});
                 }
