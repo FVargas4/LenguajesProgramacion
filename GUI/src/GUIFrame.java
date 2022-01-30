@@ -22,6 +22,31 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
     
+    public float resultado(String product){
+        float res =0;
+        char ch  = product.charAt(1);
+        char number  = product.charAt(3);
+        char number2  = product.charAt(5);
+        int num= Integer.parseInt(String.valueOf(number));
+        int num2= Integer.parseInt(String.valueOf(number2));
+        
+        switch (ch) {
+            case '/':
+                res= num/num2;
+                break;
+            case '*':
+                res= num*num2;
+                break;
+            case '-':
+                res= num-num2;
+                break;
+            case '+':
+                res= num+num2;
+                break;
+        }
+        return res;
+    }
+    
     int valor= 100;
     //método prueba para la progres bar
     public void ingresarValor(){
@@ -34,12 +59,13 @@ public class GUIFrame extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
-        valor = valor - 10;
+        valor = valor - 1;
         jProgressBar1.setValue(valor);
     }
     
    
     int counter=0;
+    float result;
     public void removeProducts(int id, String product){
         counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
@@ -49,10 +75,12 @@ public class GUIFrame extends javax.swing.JFrame {
             for(int i = 0; i<=size; i++){
                 if(product == model.getValueAt(i, 1)){
                     model.removeRow(i);
-                    valor = valor + 10;
+                    valor = valor + 1;
                     jProgressBar1.setValue(valor);
                     jSpinner4.setValue(counter);
-                    model2.addRow(new Object[]{id, product});
+                    //System.out.println("Res" + resultado(product) +"product"+product);
+                    result=resultado(product);
+                    model2.addRow(new Object[]{id, product,result});
                 }
             
             }
