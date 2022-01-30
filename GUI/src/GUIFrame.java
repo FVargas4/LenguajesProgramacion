@@ -313,6 +313,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        valor= 100;
         jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
         ingresarValor();
@@ -358,8 +359,7 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
         jButton1.setEnabled(true);
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        model.removeRow(0);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
