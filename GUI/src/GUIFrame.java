@@ -45,6 +45,7 @@ public class GUIFrame extends javax.swing.JFrame {
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         try{
             for(int i = 0; i<=model.getRowCount(); i++){
+                System.out.println("Value."+model.getValueAt(i, 1));
             if(product == model.getValueAt(i, 1)){
                 model.removeRow(i);
                 jSpinner4.setValue(counter);
