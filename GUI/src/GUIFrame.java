@@ -44,14 +44,14 @@ public class GUIFrame extends javax.swing.JFrame {
                 model.removeRow(i);
             }
         }
+            model2.addRow(new Object[]{id, product});
+            if(model.getRowCount() == 0){
+                System.out.println("Nothing to be removed.");
+            }
         }catch(Exception e){
             
         }
         
-        model2.addRow(new Object[]{id, product});
-        if(model.getRowCount() == 0){
-            System.out.println("Nothing to be removed.");
-        }
     }
 
     /**
