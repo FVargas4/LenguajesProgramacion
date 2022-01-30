@@ -38,20 +38,23 @@ public class GUIFrame extends javax.swing.JFrame {
         valor ++;
     }
     
+   
     int counter=0;
     public void removeProducts(int id, String product){
         counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         try{
-            for(int i = 0; i<=model.getRowCount(); i++){
-                System.out.println("Value."+model.getValueAt(i, 1));
-            if(product == model.getValueAt(i, 1)){
-                model.removeRow(i);
-                jSpinner4.setValue(counter);
+            int size = model.getRowCount();
+            for(int i = 0; i<=size; i++){
+                if(product == model.getValueAt(i, 1)){
+                    model.removeRow(i);
+                    jSpinner4.setValue(counter);
+                    model2.addRow(new Object[]{id, product});
+                }
+            
             }
-        }
-            model2.addRow(new Object[]{id, product});
+            
             if(model.getRowCount() == 0){
                 System.out.println("Nothing to be removed.");
             }
@@ -60,6 +63,7 @@ public class GUIFrame extends javax.swing.JFrame {
         }
         
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
