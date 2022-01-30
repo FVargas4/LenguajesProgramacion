@@ -22,29 +22,64 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    //método prueba para la progres bar
-    public void ingresarValor(){
-
-        int valor= 10;
-        jProgressBar1.setValue(valor);
-
+    public double resultado(String product){
+        double res =0;
+        char ch  = product.charAt(1);
+        char number  = product.charAt(3);
+        char number2  = product.charAt(5);
+        int num= Integer.parseInt(String.valueOf(number));
+        int num2= Integer.parseInt(String.valueOf(number2));
+        
+        switch (ch) {
+            case '/':
+                res= (double)num/num2;
+                break;
+            case '*':
+                res= num*num2;
+                break;
+            case '-':
+                res= num-num2;
+                break;
+            case '+':
+                res= num+num2;
+                break;
+        }
+        return res;
     }
+    
+    int valor= 100;
+    
     
     public void addProducts(int id, String product){
+        
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
+        valor = valor - 1;
+        jProgressBar1.setValue(valor);
     }
     
+   
+    int counter=0;
+    double result;
     public void removeProducts(int id, String product){
+        counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         try{
-            for(int i = 0; i<=model.getRowCount(); i++){
-            if(product == model.getValueAt(i, 1)){
-                model.removeRow(i);
+            int size = model.getRowCount();
+            for(int i = 0; i<=size; i++){
+                if(product == model.getValueAt(i, 1)){
+                    model.removeRow(i);
+                    valor = valor + 1;
+                    jProgressBar1.setValue(valor);
+                    jSpinner4.setValue(counter);
+                    //System.out.println("Res" + resultado(product) +"product"+product);
+                    result=resultado(product);
+                    model2.addRow(new Object[]{id, product,result});
+                }
+            
             }
-        }
-            model2.addRow(new Object[]{id, product});
+            
             if(model.getRowCount() == 0){
                 System.out.println("Nothing to be removed.");
             }
@@ -53,6 +88,7 @@ public class GUIFrame extends javax.swing.JFrame {
         }
         
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -301,12 +337,15 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        valor= 100;
+        counter=0;
+        jProgressBar1.setValue(valor);
+        jSpinner4.setValue(counter);
         jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
-        ingresarValor();
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        DefaultTableModel model2 = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         model.setRowCount(0);
         model2.setRowCount(0);
         
@@ -340,12 +379,13 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //counter=0;
+        //jSpinner4.setValue(counter);
         this.buffer.stopProducerConsumer();
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
         jButton1.setEnabled(true);
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        model.removeRow(0);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
