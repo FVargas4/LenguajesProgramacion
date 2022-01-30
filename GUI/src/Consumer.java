@@ -39,7 +39,7 @@ public class Consumer extends Thread {
                 product = this.buffer.consume(this.waitTime);
                 //System.out.println("Consumer consumed: " + product);
                 this.buffer.print("Consumer " + this.id + " consumed: " + product);
-                this.gui.removeProducts(this.id, product);
+                //this.gui.removeProducts(this.id, product);
 
                 try {
                     Thread.sleep(waitTime);

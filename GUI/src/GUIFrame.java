@@ -357,8 +357,6 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
         jButton1.setEnabled(true);
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        model.removeRow(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
