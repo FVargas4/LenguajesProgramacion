@@ -22,26 +22,32 @@ public class GUIFrame extends javax.swing.JFrame {
         initComponents();
     }
     
+    int valor= 10;
     //método prueba para la progres bar
     public void ingresarValor(){
-
-        int valor= 10;
         jProgressBar1.setValue(valor);
 
     }
     
+    
     public void addProducts(int id, String product){
+        
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
+        jProgressBar1.setValue(valor);
+        valor ++;
     }
     
+    int counter=0;
     public void removeProducts(int id, String product){
+        counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         try{
             for(int i = 0; i<=model.getRowCount(); i++){
             if(product == model.getValueAt(i, 1)){
                 model.removeRow(i);
+                jSpinner4.setValue(counter);
             }
         }
             model2.addRow(new Object[]{id, product});
@@ -340,6 +346,8 @@ public class GUIFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        //counter=0;
+        //jSpinner4.setValue(counter);
         this.buffer.stopProducerConsumer();
         System.out.println("EXECUTION TERMINATED");
         this.isProcessNotStarted = true;
