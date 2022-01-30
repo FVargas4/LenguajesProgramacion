@@ -48,11 +48,6 @@ public class GUIFrame extends javax.swing.JFrame {
     }
     
     int valor= 100;
-    //método prueba para la progres bar
-    public void ingresarValor(){
-        jProgressBar1.setValue(valor);
-
-    }
     
     
     public void addProducts(int id, String product){
@@ -348,10 +343,9 @@ public class GUIFrame extends javax.swing.JFrame {
         jSpinner4.setValue(counter);
         jButton1.setEnabled(false);
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
-        ingresarValor();
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        DefaultTableModel model2 = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
         model.setRowCount(0);
         model2.setRowCount(0);
         
