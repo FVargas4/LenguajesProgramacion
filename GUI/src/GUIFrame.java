@@ -34,6 +34,25 @@ public class GUIFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
     }
+    
+    public void removeProducts(int id, String product){
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
+        try{
+            for(int i = 0; i<=model.getRowCount(); i++){
+            if(product == model.getValueAt(i, 1)){
+                model.removeRow(i);
+            }
+        }
+        }catch(Exception e){
+            
+        }
+        
+        model2.addRow(new Object[]{id, product});
+        if(model.getRowCount() == 0){
+            System.out.println("Nothing to be removed.");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -287,7 +306,9 @@ public class GUIFrame extends javax.swing.JFrame {
         ingresarValor();
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel)jTable1.getModel();
         model.setRowCount(0);
+        model2.setRowCount(0);
         
         
         
@@ -307,7 +328,7 @@ public class GUIFrame extends javax.swing.JFrame {
         }
 
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(this.buffer, i, consWaitMS);
+            Consumer consumer = new Consumer(this.buffer, this, i, consWaitMS);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
