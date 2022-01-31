@@ -54,7 +54,7 @@ public class GUIFrame extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
-        valor = valor - 1;
+        valor = valor - 10;
         jProgressBar1.setValue(valor);
     }
     
@@ -70,10 +70,9 @@ public class GUIFrame extends javax.swing.JFrame {
             for(int i = 0; i<=size; i++){
                 if(product == model.getValueAt(i, 1)){
                     model.removeRow(i);
-                    valor = valor + 1;
+                    valor = valor + 10;
                     jProgressBar1.setValue(valor);
                     jSpinner4.setValue(counter);
-                    //System.out.println("Res" + resultado(product) +"product"+product);
                     result=resultado(product);
                     model2.addRow(new Object[]{id, product,result});
                 }

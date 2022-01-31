@@ -9,15 +9,13 @@ public class Buffer {
     
     public boolean isActive;
     public int counter = 1;
-//    private int buffer;
     public int bufferLimit;
     private String aux = "+ 7 7";
     ArrayList<String> bufferPool = new ArrayList<String>(bufferLimit);
     
     Buffer(int bufferLimit, GUIFrame gui) {
         this.isActive = true;
-//        this.buffer = 0;
-//        this.bufferPool.add("");
+
         this.bufferLimit = bufferLimit;
     }
     
@@ -26,36 +24,33 @@ public class Buffer {
 //        int product = 0;
         String product = "";
         
-        if(this.bufferPool.isEmpty()) {
+        while(this.bufferPool.isEmpty()) {
             try {
                 wait(); // wait(); Esperar un tiempo indeterminado para poder consumir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//        product = this.aux;
+
         String removed = "||||No operations to be resolved available||||";
         if( !this.bufferPool.isEmpty()){
             removed = this.bufferPool.remove(0);
         }
         
-//        product = this.buffer;
-//        this.buffer = 0;
         notifyAll();
         
         return removed;
     }
     
     synchronized void produce(String product, int waitTime) {
-        if(!this.bufferPool.isEmpty()) {
+        while(!this.bufferPool.isEmpty()) {
             try {
                 wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//        this.buffer = product;
-//        this.aux = product;
+
         this.bufferPool.add(product);
         notifyAll();
     }
