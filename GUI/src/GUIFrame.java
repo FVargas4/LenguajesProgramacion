@@ -153,7 +153,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         bufferQtty.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
-        n.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        n.setModel(new javax.swing.SpinnerNumberModel(0, null, 9, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
