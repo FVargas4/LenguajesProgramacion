@@ -59,16 +59,17 @@ public class Producer extends Thread {
         String product = "";
         while (this.buffer.isActive) {
             if(this.buffer.counter <= this.buffer.bufferLimit) {
-                product = scheme(n,m);
-                this.buffer.produce(product, waitTime);
-                this.buffer.print("Producer " + this.id + " produced: " + product);
-                this.gui.addProducts(this.id, product);
-                this.buffer.incrementCount();
                 try {
                     Thread.sleep(waitTime);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                product = scheme(n,m);
+                this.buffer.produce(product);
+                this.buffer.print("Producer " + this.id + " produced: " + product);
+                this.gui.addProducts(this.id, product);
+                this.buffer.incrementCount();
+
             }
             else {
             }

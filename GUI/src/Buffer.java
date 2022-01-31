@@ -15,15 +15,12 @@ public class Buffer {
     
     Buffer(int bufferLimit, GUIFrame gui) {
         this.isActive = true;
-
         this.bufferLimit = bufferLimit;
     }
     
     
-    synchronized String consume(int waitTime) {
-//        int product = 0;
+    synchronized String consume() {
         String product = "";
-        
         while(this.bufferPool.isEmpty()) {
             try {
                 wait(); // wait(); Esperar un tiempo indeterminado para poder consumir
@@ -35,14 +32,13 @@ public class Buffer {
         String removed = "||||No operations to be resolved available||||";
         if( !this.bufferPool.isEmpty()){
             removed = this.bufferPool.remove(0);
+            notifyAll();
         }
-        
-        notifyAll();
         
         return removed;
     }
     
-    synchronized void produce(String product, int waitTime) {
+    synchronized void produce(String product) {
         while(!this.bufferPool.isEmpty()) {
             try {
                 wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
