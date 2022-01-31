@@ -21,32 +21,19 @@ public class Consumer extends Thread {
     public void run() {
         System.out.println("Running Consumer " + this.id + "...");
         String product;
-        
-        // while (finish) {
-//        for(int i=0 ; i<10 ; i++) {
-//            product = this.buffer.consume(this.waitTime);
-//            //System.out.println("Consumer consumed: " + product);
-//            Buffer.print("Consumer " + this.id + " consumed: " + product);
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
         while (this.buffer.isActive) {
             if(this.buffer.counter > 0) {
-
                 product = this.buffer.consume(this.waitTime);
                 //System.out.println("Consumer consumed: " + product);
                 this.buffer.print("Consumer " + this.id + " consumed: " + product);
                 this.gui.removeProducts(this.id, product);
-
+                this.buffer.decrementCount();
                 try {
                     Thread.sleep(waitTime);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                this.buffer.decrementCount();
+                
             }
         }
     }
