@@ -39,7 +39,7 @@ public class Buffer {
     }
     
     synchronized void produce(String product) {
-        while(!this.bufferPool.isEmpty()) {
+        while(this.bufferPool.size() >= this.bufferLimit) { // Si el buffer esta lleno, espera
             try {
                 wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
@@ -55,7 +55,7 @@ public class Buffer {
     synchronized void print(String string) {
         System.out.print(count++ + ".....");
         System.out.println(string);
-//        printBuffer();
+        printBuffer();
     }
     
     void printBuffer() {
