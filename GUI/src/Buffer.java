@@ -55,7 +55,7 @@ public class Buffer {
     synchronized void print(String string) {
         System.out.print(count++ + ".....");
         System.out.println(string);
-        printBuffer();
+//        printBuffer();
     }
     
     void printBuffer() {
@@ -65,17 +65,9 @@ public class Buffer {
         });
         System.out.println("\n.................");
     }
-    
-    synchronized int incrementCount(){
-        return this.counter += 1;
-    }
-    synchronized int decrementCount(){
-        return this.counter -= 1;
-    }
      
     synchronized void stopProducerConsumer() {
         this.isActive = false;
-        this.count = 0;
     }
     
 }

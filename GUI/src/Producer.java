@@ -58,7 +58,8 @@ public class Producer extends Thread {
         System.out.println("Running Producer " + this.id + "...");
         String product = "";
         while (this.buffer.isActive) {
-            if(this.buffer.counter <= this.buffer.bufferLimit) {
+//            System.out.println("Counter== " + this.buffer.bufferPool.size());
+            if(this.buffer.bufferPool.size() <= this.buffer.bufferLimit) {
                 try {
                     Thread.sleep(waitTime);
                 } catch (InterruptedException ex) {
@@ -68,7 +69,6 @@ public class Producer extends Thread {
                 this.buffer.produce(product);
                 this.buffer.print("Producer " + this.id + " produced: " + product);
                 this.gui.addProducts(this.id, product);
-                this.buffer.incrementCount();
 
             }
             else {

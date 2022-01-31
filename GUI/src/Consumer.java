@@ -22,7 +22,8 @@ public class Consumer extends Thread {
         System.out.println("Running Consumer " + this.id + "...");
         String product;
         while (this.buffer.isActive) {
-            if(this.buffer.counter > 0) {
+            
+            if(this.buffer.bufferPool.size() > 0) {
                 try {
                     Thread.sleep(waitTime);
                 } catch (InterruptedException ex) {
@@ -32,7 +33,6 @@ public class Consumer extends Thread {
                 //System.out.println("Consumer consumed: " + product);
                 this.buffer.print("Consumer " + this.id + " consumed: " + product);
                 this.gui.removeProducts(this.id, product);
-                this.buffer.decrementCount();
 
                 
             }
