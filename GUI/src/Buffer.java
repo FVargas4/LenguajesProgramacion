@@ -9,53 +9,48 @@ public class Buffer {
     
     public boolean isActive;
     public int counter = 1;
-//    private int buffer;
+    public int resdiv;
     public int bufferLimit;
     private String aux = "+ 7 7";
     ArrayList<String> bufferPool = new ArrayList<String>(bufferLimit);
+    GUIFrame gui;
     
-    Buffer(int bufferLimit, GUIFrame gui) {
+    Buffer(int bufferLimit, GUIFrame gui,int resdiv) {
         this.isActive = true;
-//        this.buffer = 0;
-//        this.bufferPool.add("");
         this.bufferLimit = bufferLimit;
+        this.gui = gui;
+        this.resdiv = resdiv;
     }
     
     
-    synchronized String consume(int waitTime) {
-//        int product = 0;
+    synchronized String consume() {
         String product = "";
-        
-        if(this.bufferPool.isEmpty()) {
+        while(this.bufferPool.isEmpty()) {
             try {
                 wait(); // wait(); Esperar un tiempo indeterminado para poder consumir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//        product = this.aux;
+
         String removed = "||||No operations to be resolved available||||";
         if( !this.bufferPool.isEmpty()){
             removed = this.bufferPool.remove(0);
+            notifyAll();
         }
-        
-//        product = this.buffer;
-//        this.buffer = 0;
-        notifyAll();
         
         return removed;
     }
     
-    synchronized void produce(String product, int waitTime) {
-        if(!this.bufferPool.isEmpty()) {
+    synchronized void produce(int id, String product) {
+        while(this.bufferPool.size() >= this.bufferLimit) { // Si el buffer esta lleno, espera
             try {
                 wait();// wait(); Esperar un tiempo indeterminado para poder terminar de producir
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//        this.buffer = product;
-//        this.aux = product;
+        this.gui.addProducts(id, product, this.resdiv);
         this.bufferPool.add(product);
         notifyAll();
     }
@@ -74,17 +69,9 @@ public class Buffer {
         });
         System.out.println("\n.................");
     }
-    
-    synchronized int incrementCount(){
-        return this.counter += 1;
-    }
-    synchronized int decrementCount(){
-        return this.counter -= 1;
-    }
      
     synchronized void stopProducerConsumer() {
         this.isActive = false;
-        this.count = 0;
     }
     
 }

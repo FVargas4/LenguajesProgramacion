@@ -58,30 +58,15 @@ public class Producer extends Thread {
         System.out.println("Running Producer " + this.id + "...");
         String product = "";
         while (this.buffer.isActive) {
-            if(this.buffer.counter <= this.buffer.bufferLimit) {
-                
-    //          for(int i=0 ; i<10 ; i++) {  
-                product = scheme(n,m);
-                this.buffer.produce(product, waitTime);
-                //System.out.println("Producer produced: " + product);
-                this.buffer.print("Producer " + this.id + " produced: " + product);
-                this.gui.addProducts(this.id, product);
-
-
-
-                try {
-                    Thread.sleep(waitTime);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                this.buffer.incrementCount();
-//                return product;
+            product = scheme(n,m);
+            this.buffer.produce(this.id, product);
+            this.buffer.print("Producer " + this.id + " produced: " + product);
+            
+            try {
+                Thread.sleep(waitTime);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else {
-                //Buffer empty notification for monitoring. Commented for clarity purposes.
-                //System.out.println("Your buffer is empty.");
-            }
-            //return "Producer " + this.id + " produced: " + product;  
         }
     }
     
