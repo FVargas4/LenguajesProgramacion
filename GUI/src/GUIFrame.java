@@ -339,7 +339,8 @@ public class GUIFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //valores de la GUI
+        
         valor= 100;
         division= (Integer) bufferQtty.getValue();
         //resdiv = 100/division;
@@ -348,6 +349,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jProgressBar1.setValue(valor);
         jSpinner4.setValue(counter);
         jButton1.setEnabled(false);
+        
+        //se inicializa el buffer como una variable globlal 
         this.buffer = new Buffer((Integer) bufferQtty.getValue(), this, resdiv);
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
@@ -356,7 +359,7 @@ public class GUIFrame extends javax.swing.JFrame {
         model2.setRowCount(0);
         
         
-        
+               //recopilación de datos de toda la GUI
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
         int prodWaitMs = (Integer) prodWait.getValue();
@@ -367,12 +370,14 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("OPERATIONS ARE ABOUT TO GET SOLVED!! ");
         
         for(int i=1 ; i <= producers ; i++) {
+            //creación de productores los cuales están sincronizados mediante .buffer
             Producer producer = new Producer(this.buffer, this, i, prodWaitMs, x, y);
             producer.start();
             System.out.println("Producer "+ i + " created");
         }
 
         for(int i=1 ; i <= consumers ; i++) {
+            //creación de consumidores
             Consumer consumer = new Consumer(this.buffer, this, i, consWaitMS,resdiv);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
