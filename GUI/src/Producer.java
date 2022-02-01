@@ -59,9 +59,9 @@ public class Producer extends Thread {
         String product = "";
         while (this.buffer.isActive) {
             product = scheme(n,m);
-            this.buffer.produce(product);
+            this.buffer.produce(this.id, product);
             this.buffer.print("Producer " + this.id + " produced: " + product);
-            this.gui.addProducts(this.id, product);
+            
             try {
                 Thread.sleep(waitTime);
             } catch (InterruptedException ex) {

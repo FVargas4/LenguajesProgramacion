@@ -48,9 +48,13 @@ public class GUIFrame extends javax.swing.JFrame {
     }
     
     int valor= 100;
+    int division;
+    int resdiv;
     
     
-    public void addProducts(int id, String product){
+    
+    public void addProducts(int id, String product,int div){
+        //System.out.println("div "+ div+ " ");
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         model.addRow(new Object[]{id, product});
@@ -61,7 +65,7 @@ public class GUIFrame extends javax.swing.JFrame {
    
     int counter=0;
     double result;
-    public void removeProducts(int id, String product){
+    public void removeProducts(int id, String product,int div){
         counter++;
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
@@ -337,11 +341,14 @@ public class GUIFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         valor= 100;
+        division= (Integer) bufferQtty.getValue();
+        //resdiv = 100/division;
+        resdiv = 0;
         counter=0;
         jProgressBar1.setValue(valor);
         jSpinner4.setValue(counter);
         jButton1.setEnabled(false);
-        this.buffer = new Buffer((Integer) bufferQtty.getValue(), this);
+        this.buffer = new Buffer((Integer) bufferQtty.getValue(), this, resdiv);
         
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel)jTable2.getModel();
@@ -366,7 +373,7 @@ public class GUIFrame extends javax.swing.JFrame {
         }
 
         for(int i=1 ; i <= consumers ; i++) {
-            Consumer consumer = new Consumer(this.buffer, this, i, consWaitMS);
+            Consumer consumer = new Consumer(this.buffer, this, i, consWaitMS,resdiv);
             consumer.start();
             System.out.println("Consumer "+ i + " created");
         }
