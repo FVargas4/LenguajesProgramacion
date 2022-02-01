@@ -12,17 +12,21 @@ public class Buffer {
     public int resdiv;
     public int bufferLimit;
     private String aux = "+ 7 7";
+    
+    //es el pool de todas las operaciones que se crean 
     ArrayList<String> bufferPool = new ArrayList<String>(bufferLimit);
     GUIFrame gui;
     
+    //
     Buffer(int bufferLimit, GUIFrame gui,int resdiv) {
+        //define cuando se va a deterner la ejecucion
         this.isActive = true;
         this.bufferLimit = bufferLimit;
         this.gui = gui;
         this.resdiv = resdiv;
     }
     
-    
+    //mantiene en ciclo constante solo si el bufferpool esta vacío
     synchronized String consume() {
         String product = "";
         while(this.bufferPool.isEmpty()) {
@@ -33,6 +37,7 @@ public class Buffer {
             }
         }
 
+        //sirve para remover el primer elemento del buffer pool
         String removed = "||||No operations to be resolved available||||";
         if( !this.bufferPool.isEmpty()){
             removed = this.bufferPool.remove(0);
@@ -42,6 +47,7 @@ public class Buffer {
         return removed;
     }
     
+    //obtiene el string y lo pasa a una forma scheme
     synchronized void produce(int id, String product) {
         while(this.bufferPool.size() >= this.bufferLimit) { // Si el buffer esta lleno, espera
             try {
@@ -62,6 +68,7 @@ public class Buffer {
         printBuffer();
     }
     
+    //funcion imprimir buffer
     void printBuffer() {
         System.out.println("\n.................");
         this.bufferPool.forEach(item ->{
@@ -70,6 +77,7 @@ public class Buffer {
         System.out.println("\n.................");
     }
      
+    //función del botón de stop
     synchronized void stopProducerConsumer() {
         this.isActive = false;
     }
