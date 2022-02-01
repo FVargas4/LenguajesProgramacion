@@ -359,11 +359,13 @@ public class GUIFrame extends javax.swing.JFrame {
         model2.setRowCount(0);
         
         
-               //recopilación de datos de toda la GUI
+         //recopilación de datos de toda la GUI
         int producers = (Integer) producerQtty.getValue();
         int consumers = (Integer) consumerQtty.getValue();
         int prodWaitMs = (Integer) prodWait.getValue();
         int consWaitMS = (Integer) consWait.getValue();
+        
+        //obtencion de valores mediante get y cambio de nombre a n y m
         int x  = (Integer) n.getValue();
         int y  = (Integer) m.getValue();
         
