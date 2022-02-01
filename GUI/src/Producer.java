@@ -13,7 +13,7 @@ public class Producer extends Thread {
     public int n;
     public int m;
     
-    
+    //sirve para instaciar lo que se va a conectar
     Producer(Buffer buffer, GUIFrame gui, int id, int waitTime, int n, int m) {
         this.id = id;
         this.buffer = buffer;
@@ -23,7 +23,7 @@ public class Producer extends Thread {
         this.m = m;
     }
 
-    
+    //sirve para crear la oepracion en shcme de forma random
     synchronized String scheme(int n, int m){
     
        int n_1, m_1;
@@ -54,11 +54,14 @@ public class Producer extends Thread {
     }
     
     @Override
-    public void run() {
+    public void run() {//funcion que corre constantemente una vez inicializado el hilo
+         
         System.out.println("Running Producer " + this.id + "...");
         String product = "";
+        //ciclo constante debido a la función.isActive
         while (this.buffer.isActive) {
             product = scheme(n,m);
+            
             this.buffer.produce(this.id, product);
             this.buffer.print("Producer " + this.id + " produced: " + product);
             
